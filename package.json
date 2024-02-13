@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@textabledev/langs-flags-list": "^1.0.0",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.2",
+    "flag-icon-css": "^4.1.7",
     "vue": "^3.3.11"
   },
   "devDependencies": {

@@ -1,12 +1,11 @@
 <template>
     <main>
         <div class="container">
-            <div class="cards">
-                <SingleMovie
-                v-for="(element, index) in store.arraySearchMovies"
-                :key="index"
-                :propsTitle="element.title"
-                :propsOriginalTitle="element.original_title"
+            <div class="cards d-flex flex-wrap">
+                <SingleMovie 
+                v-for="(element, index) in store.arraySearchMovies" 
+                :key="index" :propsTitle="element.title"
+                :propsOriginalTitle="element.original_title" 
                 :propsLang="element.original_language"
                 :propsVote="element.vote_average" />
             </div>
@@ -31,4 +30,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+
+<style lang="scss" scoped>
+.cards {
+    padding-block: 100px;
+    gap: 10px;
+}
+</style>

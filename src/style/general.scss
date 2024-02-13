@@ -1,3 +1,9 @@
 @use './partials/mixins' as *;
 @use './partials/variables' as *;
+@use './flags/lang-flags' as *;
 @import "bootstrap/scss/bootstrap";
+
+
+.lang-icon {
+    background-image: url('../assets/flags/lang-flags.png');
+}
