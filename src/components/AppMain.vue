@@ -2,12 +2,10 @@
     <main>
         <div class="container">
             <div class="cards d-flex flex-wrap">
-                <SingleMovie 
-                v-for="(element, index) in store.arraySearchMovies" 
-                :key="index" :propsTitle="element.title"
-                :propsOriginalTitle="element.original_title" 
-                :propsLang="element.original_language"
-                :propsVote="element.vote_average" />
+                <SingleMovie v-for="(element, index) in store.arraySearch" :key="index"
+                    :propsTitle="element.title || element.name"
+                    :propsOriginalTitle="element.original_title || element.original_name"
+                    :propsLang="element.original_language" :propsVote="element.vote_average" />
             </div>
         </div>
     </main>

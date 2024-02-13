@@ -16,33 +16,31 @@ export default {
   },
   methods: {
 
-    getSearchMovies() {
+    getSearch() {
 
-      store.apiSearchMovies = 'https://api.themoviedb.org/3/search/movie?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query='
-
-      // if (store.searchText) {
-      //   store.apiSearchMovies += `${store.searchText}`
-      // }
+      store.apiSearchMulti = 'https://api.themoviedb.org/3/search/multi?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query='
 
       axios
-        .get(`https://api.themoviedb.org/3/search/movie?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query=${store.searchText}`)
+        .get(`https://api.themoviedb.org/3/search/multi?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query=${store.searchText}`)
         .then(res => {
           console.log(res.data)
-          store.arraySearchMovies = res.data.results
+          store.arraySearch = res.data.results
         })
+
+
     }
 
   },
-  // mounted() {
-  //   this.getSearchMovies()
-  // }
+  mounted() {
+    this.getSearch()
+  }
 }
 
 </script>
 
 
 <template>
-  <AppHeader @performSearch="getSearchMovies" />
+  <AppHeader @performSearch="getSearch" />
   <AppMain />
 </template>
 
