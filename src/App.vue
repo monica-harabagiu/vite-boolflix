@@ -1,13 +1,15 @@
 <script>
 import AppHeader from './components/AppHeader.vue'
 import AppMain from './components/AppMain.vue'
+import AppSidebar from './components/AppSidebar.vue'
 import axios from 'axios'
 import { store } from './store'
 
 export default {
   components: {
     AppHeader,
-    AppMain
+    AppMain,
+    AppSidebar
   },
   data() {
     return {
@@ -27,8 +29,8 @@ export default {
           store.arraySearch = res.data.results
         })
 
-      
- 
+
+
 
     }
 
@@ -42,11 +44,31 @@ export default {
 
 
 <template>
-  <AppHeader @performSearch="getSearch" />
-  <AppMain />
+  <div class="d-flex app-height">
+
+    <AppSidebar />
+
+    <div class="right-content">
+      <AppHeader @performSearch="getSearch" />
+      <AppMain />
+    </div>
+
+  </div>
 </template>
 
 
 <style lang="scss">
 @use './style/general.scss' as *;
+@use './style/partials/variables' as *;
+
+
+.app-height {
+
+  height: 100vh;
+
+  .right-content {
+
+    width: calc(100% - $sidebar-width);
+  }
+}
 </style>

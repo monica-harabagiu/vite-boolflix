@@ -3,6 +3,10 @@
 @use './flags/lang-flags' as *;
 @import "bootstrap/scss/bootstrap";
 
+body {
+
+    background-color: $main-bg-color;
+}
 
 .lang-icon {
     background-image: url('../assets/flags/lang-flags.png');

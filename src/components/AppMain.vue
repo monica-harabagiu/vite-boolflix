@@ -1,8 +1,8 @@
 <template>
     <main>
-        <div class="container">
+        <div class="row mx-4 ">
 
-            <div class="cards d-flex flex-wrap">
+            <div class="row cards d-flex flex-wrap">
                 <SingleMovie v-for="(element, index) in store.arraySearch" :key="index"
                     :propsTitle="element.title || element.name"
                     :propsOriginalTitle="element.original_title || element.original_name"
@@ -32,8 +32,19 @@ export default {
 
 
 <style lang="scss" scoped>
-.cards {
-    padding-block: 100px;
-    gap: 10px;
+@use '../style/partials/variables' as *;
+
+main {
+
+    height: 100vh;
+    overflow: scroll;
+    padding-top: 100px;
+
+    .cards {
+        padding-block: 50px;
+        gap: 20px;
+    }
+
+
 }
 </style>

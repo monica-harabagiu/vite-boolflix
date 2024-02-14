@@ -39,14 +39,16 @@ export default {
 
 .card {
 
-    flex-basis: calc(100% / 6 - 10px + (10px / 6));
+    flex-basis: calc(100% / 6 - 20px + (20px / 6));
     border: 0;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     position: relative;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 0;
 
     &:hover img {
 
-        opacity: .3;
+        opacity: .2;
     }
 
     &:hover .media-info {
@@ -59,6 +61,7 @@ export default {
 
         width: 100%;
         background-color: black;
+        margin: 0;
 
         img {
 
