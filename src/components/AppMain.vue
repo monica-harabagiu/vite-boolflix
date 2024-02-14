@@ -5,7 +5,8 @@
                 <SingleMovie v-for="(element, index) in store.arraySearch" :key="index"
                     :propsTitle="element.title || element.name"
                     :propsOriginalTitle="element.original_title || element.original_name"
-                    :propsLang="element.original_language" :propsVote="element.vote_average" />
+                    :propsLang="element.original_language" :propsVote="element.vote_average" 
+                    :propsImg="element.poster_path"/>
             </div>
         </div>
     </main>

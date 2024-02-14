@@ -27,6 +27,8 @@ export default {
           store.arraySearch = res.data.results
         })
 
+      
+ 
 
     }
 
