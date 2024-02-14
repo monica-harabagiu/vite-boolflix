@@ -6,7 +6,14 @@
         <h2>{{ propsTitle }}</h2>
         <h3>{{ propsOriginalTitle }}</h3>
         <span :class="`lang-icon lang-icon-${propsLang}`"></span>
-        <span>{{ propsVote }}</span>
+        <span>
+            <font-awesome-icon icon="fa-solid fa-star" 
+            v-for="(element, index) in Math.ceil(propsVote / 2)" 
+            :key="index" />
+            <font-awesome-icon icon="fa-regular fa-star" 
+            v-for="(element, index) in (5 - Math.ceil(propsVote / 2))"
+            :key="index" />
+        </span>
     </div>
 </template>
 
@@ -29,5 +36,11 @@ export default {
 .card {
 
     flex-basis: calc(100% / 6 - 10px + (10px / 6));
+
+    .stella {
+        background-color: red;
+        height: 5px;
+        width: 5px;
+    }
 }
 </style>
