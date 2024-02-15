@@ -20,14 +20,35 @@ export default {
 
     getSearch() {
 
-      store.apiSearchMulti = 'https://api.themoviedb.org/3/search/multi?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query='
+      // store.apiSearchMulti = 'https://api.themoviedb.org/3/search/multi?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query='
 
-      axios
-        .get(`https://api.themoviedb.org/3/search/multi?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query=${store.searchText}`)
-        .then(res => {
-          console.log(res.data)
-          store.arraySearch = res.data.results
-        })
+      store.arraySearch = []
+
+      if (store.searchText == '') {
+        axios
+          .get(`https://api.themoviedb.org/3/trending/${store.currentMediaType}/week?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query=`)
+          .then(res => {
+            console.log(res.data)
+            store.arraySearch = res.data.results
+          })
+      } else if (store.searchText !== '' && store.currentMediaType == 'all') {
+        axios
+          .get(`https://api.themoviedb.org/3/search/multi?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query=${store.searchText}`)
+          .then(res => {
+            console.log(res.data)
+            store.arraySearch = res.data.results
+          })
+      } else {
+        axios
+          .get(`https://api.themoviedb.org/3/search/${store.currentMediaType}?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query=${store.searchText}`)
+          .then(res => {
+            console.log(res.data)
+            store.arraySearch = res.data.results
+          })
+      }
+
+      console.log(store.currentMediaType)
+
 
 
 
@@ -46,7 +67,7 @@ export default {
 <template>
   <div class="d-flex app-height">
 
-    <AppSidebar />
+    <AppSidebar @changeMediaType="getSearch" />
 
     <div class="right-content">
       <AppHeader @performSearch="getSearch" />

@@ -6,9 +6,9 @@
             <div class="col-8">
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"
-                        v-model="store.searchText" />
-                    <button @click.prevent="$emit('performSearch')" class="btn" type="submit"><font-awesome-icon
-                            icon="fa-solid fa-magnifying-glass" /></button>
+                        v-model="store.searchText" @input="$emit('performSearch')" />
+                    <!-- <button  class="btn" type="submit"><font-awesome-icon
+                            icon="fa-solid fa-magnifying-glass" /></button> -->
                 </form>
 
             </div>
@@ -58,8 +58,8 @@ header {
 
     figure {
 
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         margin: 0 20px;
         border-radius: 50%;
         overflow: hidden;
