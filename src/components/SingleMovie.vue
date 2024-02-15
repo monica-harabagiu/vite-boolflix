@@ -1,5 +1,6 @@
 <template>
-    <div class="card">
+    <div class="card" 
+        @click="$emit('showTrailer')">
 
         <figure>
             <img v-if="propsImg == null" src="../assets/img/null-cover.jpg" alt="">
@@ -19,9 +20,20 @@
         </div>
 
     </div>
+
+    <!-- <div class="trailer-card" :class="store.activeVideoCard ? 'active' : 'inactive'">
+        <font-awesome-icon icon="fa-solid fa-xmark" @click="$emit('closeTrailer')" />
+        <div class="trailer-box">
+            <iframe type="text/html" :src="`https://www.youtube.com/embed/${store.videoKey}?autoplay=1&controls=0&disablekb=1&enablejsapi=1&fs=0&loop=1&modestbranding=1&iv_load_policy=3`" frameborder="0">
+
+            </iframe>
+        </div>
+    </div> -->
 </template>
 
 <script>
+import { store } from '../store'
+
 export default {
     name: 'SingleMovie',
     props: {
@@ -29,8 +41,15 @@ export default {
         propsOriginalTitle: String,
         propsLang: String,
         propsVote: Number,
-        propsImg: String
-    }
+        propsImg: String,
+        propsType: String,
+        propsId: Number
+    },
+    data() {
+        return {
+            store
+        }
+    },
 }
 </script>
 
@@ -45,6 +64,7 @@ export default {
     position: relative;
     background-color: rgba(0, 0, 0, 0);
     padding: 0;
+    cursor: pointer;
 
     &:hover img {
 
@@ -55,6 +75,11 @@ export default {
 
         display: flex;
         flex-direction: column;
+    }
+
+    &:hover .trailer-card {
+
+        display: block
     }
 
     figure {
@@ -94,5 +119,50 @@ export default {
         }
 
     }
+
 }
+
+// .trailer-card {
+
+//     background-color: black;
+//     opacity: .5;
+//     width: 100%;
+//     height: 100vh;
+//     border: 1px solid red;
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     z-index: 999;
+//     justify-content: center;
+//     align-items: center;
+
+//     .fa-xmark {
+
+//         position: absolute;
+//         top: 20px;
+//         right: 20px;
+//         font-size: 2rem;
+//         cursor: pointer;
+//     }
+
+//     .trailer-box {
+        
+//         width: 1200px;
+//         height: 800px;
+
+//         iframe {
+//             width: 100%;
+//             height: 100%;
+//         }
+//     }
+// }
+
+// .active {
+//     display: flex;
+// }
+
+// .inactive {
+//     display: none;
+// }
 </style>

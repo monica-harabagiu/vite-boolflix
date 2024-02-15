@@ -48,12 +48,26 @@ export default {
       }
 
       console.log(store.currentMediaType)
+    },
 
+    // getTrailer(media, id) {
 
+    //   axios
+    //     .get(`https://api.themoviedb.org/3/${media}/${id}/videos?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee`)
+    //     .then(res => {
 
+    //       res.data.results.forEach(link => {
 
+    //         if (link.site == 'YouTube' && link.type == 'Teaser' && link.official) {
+    //           store.videoKey = link.key
+    //           console.log(videoKey)
+    //           return
+    //         }
 
-    }
+    //       })
+          
+    //     })
+    // }
 
   },
   mounted() {
@@ -71,7 +85,7 @@ export default {
 
     <div class="right-content">
       <AppHeader @performSearch="getSearch" />
-      <AppMain />
+      <AppMain/>
     </div>
 
   </div>

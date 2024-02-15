@@ -34,14 +34,6 @@
                     <font-awesome-icon :icon="`fa-solid ${element.icon_class}`" />
                     <span>{{ element.name }}</span>
                 </li>
-                <!-- <li>
-                    <font-awesome-icon icon="fa-solid fa-clapperboard" />
-                    <span>TV Shows</span>
-                </li>
-                <li>
-                    <font-awesome-icon icon="fa-solid fa-film" />
-                    <span>Movies</span>
-                </li> -->
             </ul>
 
         </div>
