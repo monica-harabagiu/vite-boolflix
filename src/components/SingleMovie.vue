@@ -1,6 +1,5 @@
 <template>
-    <div class="card" 
-        @click="$emit('showTrailer')">
+    <div class="card" >
 
         <figure>
             <img v-if="propsImg == null" src="../assets/img/null-cover.jpg" alt="">
