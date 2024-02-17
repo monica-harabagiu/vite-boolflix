@@ -66,5 +66,9 @@ export const store = reactive({
     apiVideoTrailers: 'https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query=',
     arrayTrailers: [],
     videoKey: '',
-    mediaInfos: {}
+    mediaInfos: {},
+    arrCast: [],
+    arrGenresMovies: [],
+    arrGenresTv: [],
+    arrGenres: []
 })

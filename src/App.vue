@@ -20,8 +20,6 @@ export default {
 
     getSearch() {
 
-      // store.apiSearchMulti = 'https://api.themoviedb.org/3/search/multi?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query='
-
       store.arraySearch = []
 
       if (store.searchText == '') {
@@ -33,14 +31,14 @@ export default {
           })
       } else if (store.searchText !== '' && store.currentMediaType == 'all') {
         axios
-          .get(`https://api.themoviedb.org/3/search/multi?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&language=en-U&query=${store.searchText}`)
+          .get(`https://api.themoviedb.org/3/search/multi?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query=${store.searchText}`)
           .then(res => {
             console.log(res.data)
             store.arraySearch = res.data.results
           })
       } else {
         axios
-          .get(`https://api.themoviedb.org/3/search/${store.currentMediaType}?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&language=en-U&query=${store.searchText}`)
+          .get(`https://api.themoviedb.org/3/search/${store.currentMediaType}?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee&query=${store.searchText}`)
           .then(res => {
             console.log(res.data)
             store.arraySearch = res.data.results
@@ -50,28 +48,29 @@ export default {
       console.log(store.currentMediaType)
     },
 
-    // getTrailer(media, id) {
+    getGenres() {
 
-    //   axios
-    //     .get(`https://api.themoviedb.org/3/${media}/${id}/videos?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee`)
-    //     .then(res => {
+      axios
+        .get('https://api.themoviedb.org/3/genre/movie/list?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee')
+        .then(res => {
+          store.arrGenresMovies = res.data.genres
+          console.log(store.arrGenresMovies)
+      })
 
-    //       res.data.results.forEach(link => {
+      axios
+      .get('https://api.themoviedb.org/3/genre/tv/list?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee')
+      .then(res => {
+        store.arrGenresTv = res.data.genres
+        console.log(store.arrGenresTv)
+      })
 
-    //         if (link.site == 'YouTube' && link.type == 'Teaser' && link.official) {
-    //           store.videoKey = link.key
-    //           console.log(videoKey)
-    //           return
-    //         }
 
-    //       })
-          
-    //     })
-    // }
+    }
 
   },
   mounted() {
     this.getSearch()
+    this.getGenres()
   }
 }
 
@@ -85,7 +84,7 @@ export default {
 
     <div class="right-content">
       <AppHeader @performSearch="getSearch" />
-      <AppMain/>
+      <AppMain />
     </div>
 
   </div>

@@ -7,7 +7,7 @@
                     :propsTitle="element.title || element.name"
                     :propsOriginalTitle="element.original_title || element.original_name"
                     :propsLang="element.original_language" :propsVote="element.vote_average" :propsImg="element.poster_path"
-                    @click="getTrailer(element.media_type, element.id, (element.title || element.name), element.original_language, element.vote_average, element.overview)" />
+                    @click="getTrailer(element.media_type, element.id, (element.title || element.name), element.original_language, element.vote_average, element.overview, element.genre_ids)" />
 
                 <div class="trailer-card" :class="store.activeVideoCard ? 'active' : 'inactive'">
                     <font-awesome-icon icon="fa-solid fa-xmark" @click="(store.activeVideoCard = false), (store.mediaInfos = {}),
@@ -22,8 +22,18 @@
                         <div class="movie-info p-4">
                             <span :class="`lang-icon lang-icon-${store.mediaInfos.language} mb-2 `"></span>
                             <h2>{{ store.mediaInfos.title }}</h2>
+                            <p>
+                                <span class="genres" v-for="(element, index) in store.arrGenres" :key="index">{{ element }}
+                                    <span v-if="index < store.arrGenres.length - 1">, </span>
+                                </span>
+                            </p>
                             <p>{{ store.mediaInfos.overview }}</p>
-                            <p>Cast: </p>
+                            <p class="cast">Cast:
+                                <span v-for="(element, index) in store.arrCast" :key="index">{{ element.name }}
+                                    <span v-if="index < store.arrCast.length - 1">, </span>
+                                </span>
+                            </p>
+
                         </div>
                     </div>
                 </div>
@@ -46,12 +56,46 @@ export default {
         }
     },
     methods: {
-        getTrailer(media, id, title, language, vote, overview) {
+        getTrailer(media, id, title, language, vote, overview, genres) {
 
             store.videoKey = ''
+            store.arrGenres = []
 
-            store.mediaInfos = { title: title, language: language, vote: vote, overview: overview }
-            console.log(media, id, title, language, vote, overview)
+            store.mediaInfos = { title: title, language: language, vote: vote, overview: overview, genres: genres }
+            console.log(media, id, title, language, vote, overview, genres)
+
+
+            if (media == 'movie' || store.currentMediaType == 'movie') {
+
+                store.arrGenresMovies.forEach(element => {
+
+                    for (let i = 0; i < genres.length; i++) {
+                        const singleMovieGenre = genres[i];
+
+                        if (element.id == singleMovieGenre) {
+                            console.log(element.name)
+                            store.arrGenres.push(element.name)
+                            console.log(store.arrGenres)
+                        }
+                    }
+
+                })
+            } else if (media == 'tv' || store.currentMediaType == 'tv' ) {
+
+                store.arrGenresTv.forEach(element => {
+
+                    for (let i = 0; i < genres.length; i++) {
+                        const singleTvGenre = genres[i];
+
+                        if (element.id == singleTvGenre) {
+                            console.log(element.name)
+                            store.arrGenres.push(element.name)
+                        }
+                    }
+
+                })
+            }
+
 
             store.activeVideoCard = true
 
@@ -61,31 +105,31 @@ export default {
                 media = 'movie'
             }
 
-            console.log(media, id, title, language, vote, overview)
-
             axios
                 .get(`https://api.themoviedb.org/3/${media}/${id}/videos?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee`)
                 .then(res => {
 
-                    res.data.results.forEach(link => {
+                    res.data.results.some(link => {
 
                         if (link.site == 'YouTube' && (link.type == 'Trailer' || link.type == 'Teaser')) {
                             store.videoKey = link.key
-                            console.log(link.key)
-                            return
+                            // console.log(link.key)
+                            return true
                         }
 
                     })
 
                 })
+
+            axios
+                .get(`https://api.themoviedb.org/3/${media}/${id}/credits?api_key=5ab2b0cfcfeb10eeaa0adb6b3787dbee`)
+                .then(res => {
+                    // console.log(res.data.cast)
+                    store.arrCast = res.data.cast.slice(0, 5)
+                    // console.log(store.arrCast)
+                })
         }
     },
-    // closeVideoCard() {
-
-    //     store.activeVideoCard = false
-    //     store.mediaInfos = {}
-    //     store.videoKey = ''
-    // },
     components: {
         SingleMovie
     },
@@ -105,8 +149,6 @@ main {
     .cards {
         padding-block: 50px;
         gap: 20px;
-        // position: relative;
-
 
         .trailer-card {
 
@@ -145,6 +187,18 @@ main {
 
                 width: 400px;
                 background-color: black;
+
+                .genres {
+
+                    font-style: italic;
+                    font-size: .8rem;
+                }
+
+                .cast {
+
+                    color: grey;
+                    font-size: .9rem;
+                }
             }
         }
 
